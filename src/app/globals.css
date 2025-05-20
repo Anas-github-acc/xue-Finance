@@ -1,26 +1,119 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: 0 0% 0%; /* Pure black */
+  --foreground: 0 0% 100%; /* Pure white for text */
+  --card: 0 0% 10%; /* Very dark gray for cards */
+  --card-foreground: 0 0% 90%; /* Light gray for card text */
+  --popover: 0 0% 10%; /* Very dark gray for popovers */
+  --popover-foreground: 0 0% 90%; /* Light gray for popover text */
+  --primary: 51 100% 50%; /* Golden: #FFD700 */
+  --primary-foreground: 0 0% 0%; /* Black for contrast on golden elements */
+  --secondary: 180 100% 50%; /* Cyan: #00FFFF */
+  --secondary-foreground: 0 0% 0%; /* Black for contrast on cyan elements */
+  --muted: 270 50% 40%; /* Muted purple: #800080 */
+  --muted-foreground: 0 0% 70%; /* Muted gray for secondary text */
+  --accent: 240 100% 70%; /* Cyan-purple gradient midpoint: #6666FF */
+  --accent-foreground: 0 0% 0%; /* Black for contrast on accent */
+  --destructive: 0 100% 50%; /* Bright red for destructive actions: #FF0000 */
+  --destructive-foreground: 0 0% 100%; /* White for contrast */
+  --border: 0 0% 20%; /* Dark gray for borders */
+  --input: 0 0% 20%; /* Dark gray for inputs */
+  --ring: 51 100% 50%; /* Golden for focus rings */
+  --radius: 0.5rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html,
+body {
+  height: 100%;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Gradient for buttons and interactive elements */
+.gradient-primary {
+  background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--secondary)));
+  transition: background 0.3s ease;
+}
+
+.gradient-primary:hover {
+  background: linear-gradient(45deg, hsl(var(--secondary)), hsl(var(--accent)), hsl(var(--primary)));
+  @apply animate-pulse;
+}
+
+/* Gradient for hover effects */
+.gradient-hover {
+  background: linear-gradient(45deg, hsl(var(--muted)), hsl(var(--accent)));
+  transition: background 0.3s ease;
+}
+
+.gradient-hover:hover {
+  background: linear-gradient(45deg, hsl(var(--accent)), hsl(var(--muted)));
+  @apply animate-bounce;
+}
+
+/* Pop animation for interactive elements */
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.pop-animation {
+  animation: pop 0.3s ease-out;
+  @apply animate-pulse;
+}
+
+/* Custom scrollbar for textarea */
+textarea::-webkit-scrollbar {
+  width: 6px;
+}
+
+textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background: linear-gradient(hsl(var(--primary)), hsl(var(--secondary)));
+  border-radius: 10px;
+}
+
+textarea::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(hsl(var(--secondary)), hsl(var(--primary)));
+  @apply animate-pulse;
+}
+
+/* Mobile height optimization */
+@supports (-webkit-touch-callout: none) {
+  .h-\[100dvh\] {
+    height: -webkit-fill-available;
+  }
+}
+
+/* iOS Safari specific adjustments */
+@supports (-webkit-touch-callout: none) {
+  .h-\[100svh\] {
+    height: -webkit-fill-available;
+  }
+
+  .overflow-y-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Fix for mobile browsers that change viewport height when the keyboard appears */
+@media screen and (max-width: 767px) {
+  html,
+  body {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
 }
