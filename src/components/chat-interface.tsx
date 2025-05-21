@@ -337,7 +337,7 @@ export default function ChatInterface({ chatProps }: ChatInterfaceProps) {
                 <div className="pb-15">
                   <Textarea
                     ref={textareaRef}
-                    placeholder={isLoading ? "Waiting for response..." : "Ask Anything"}
+                    placeholder={isLoading ? "Waiting for response..." : "Ask Finance related questions like what is the stock value of TSLA? ..."}
                     className="min-h-[24px] max-h-[160px] w-full rounded-3xl border-0 bg-transparent text-white placeholder:text-[#94a3b8] placeholder:text-base focus-visible:ring-0 focus-visible:ring-offset-0 text-base px-3 pt-1 pb-0 resize-none overflow-y-auto leading-tight"
                     value={inputValue}
                     onChange={handleInputChange}
